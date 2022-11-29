@@ -1,25 +1,30 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include "interface/self_renderer.h"
 
 int main(void)
 {
+
+    int ScreenSizeX = 500;
+    int ScreenSizeY = 500;
+
     SDL_Window      *win = NULL;
     SDL_Renderer    *ren = NULL;
 
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_CreateWindowAndRenderer(500, 500, 0, &win, &ren);
+    SDL_CreateWindowAndRenderer(ScreenSizeX, ScreenSizeY, 0, &win, &ren);
 
-    SDL_SetRenderDrawColor(ren, 0, 200, 0, 255);
-    SDL_RenderClear(ren);
-    SDL_RenderPresent(ren);
+    self_renderer renderer(ScreenSizeX, ScreenSizeY);
+    renderer.renderArray(ren);
     bool quit = false;
-
     //Event handler
     SDL_Event e;
 
     //While application is running
     while( !quit )
     {
+
+
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 ) // poll for event
         {
@@ -37,3 +42,5 @@ int main(void)
 
     return (0);
 }
+
+
