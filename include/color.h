@@ -31,6 +31,12 @@ public:
     int getX() {return x;};
     int getY() {return y;};
 
+    void setRGBA(int r, int g, int b , int a) {
+        this->r = r;
+        this->g = g;
+        this->b = b;
+        this->a = a;
+    }
     void setR(int r) {this->r = r;};
     void setG(int g) {this->r = g;};
     void setB(int b) {this->r = b;};
