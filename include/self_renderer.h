@@ -15,9 +15,11 @@
 
 class self_renderer {
 private:
+
     int screen_size_x;
     int screen_size_y;
     int screen_size;
+    // Color array of each pixel on the screen
     std::vector<color> colors;
     SDL_Renderer *renderer = nullptr;
 public:
@@ -32,15 +34,17 @@ public:
     std::vector<int> generate(int size_x, int size_y);
 };
 
+// displays the color array
 void self_renderer::display() {
     for (color c : colors) {
+        // for every color buffer that color with it's rgba values
         SDL_SetRenderDrawColor(renderer, c.getR(), c.getG(), c.getB(), c.getA());
         SDL_RenderDrawPoint(renderer, c.getX(), c.getY());
     }
-
+    // tells to render the previous values sent to the buffer
     SDL_RenderPresent(renderer);
 }
-
+// constructor
 self_renderer::self_renderer(SDL_Renderer *renderer, int x, int y) {
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++) {
@@ -53,29 +57,34 @@ self_renderer::self_renderer(SDL_Renderer *renderer, int x, int y) {
     this->renderer = renderer;
     display();
 }
-
+// set a specific pixel, unused
 void self_renderer::setPixel(color c) {
     color *coco = &colors[c.getY() + (c.getX()* screen_size_x)];
     coco->setRGBA(c.getR(), c.getG(), c.getB(), c.getA());
     display();
 }
-
+// get screen size/color vector size, same thing
 int self_renderer::getSize() {
     return colors.size();
 }
-
+// get color at index, unused
 color * self_renderer::getPixel(int index) {
     return &colors[index];
 }
-
+// renders any type of noise
 void self_renderer::renderNoise(noise &noize, bool color_on, int smoothness, int iterations) {
     noise *noise = &noize;
+    // cpp file that handles smoothing
     average2D average2D;
+    // vector of multiple noises for iterations
     std::vector<std::vector<int>> noises;
+    // if iterations are invalid set to 1
     if(iterations <= 0 ) iterations = 1;
+    // make new iterations of noise
     for (int i = 0; i < iterations; i++) {
         noises.push_back(noise->generate(screen_size_x, screen_size_y));
     }
+    // combine the iterations
     if (iterations > 1) {
         for (int i = 1; i < screen_size; i++) {
             int total = 0;
@@ -85,9 +94,11 @@ void self_renderer::renderNoise(noise &noize, bool color_on, int smoothness, int
             noises[0][i] = total / iterations;
         }
     }
+    // smooth out the current noise
     for (int i = 0; i < smoothness; i++) {
         noises = average2D.average(noises, screen_size_x, screen_size_y);
     }
+    // sets the values based on height of noise
     if (color_on) {
         for (int i = 0; i < getSize(); i++) {
             if (noises[0][i] < 50) {
@@ -113,12 +124,13 @@ void self_renderer::renderNoise(noise &noize, bool color_on, int smoothness, int
                 c->setRGBA(250,226,204,255);
             }
         }
+    // sets the values to default black and white gradient
     } else {
         for (int i = 0; i < getSize(); i++) {
             color *c = &colors[i];
             c->setRGBA(noises[0][i], noises[0][i], noises[0][i], 255);
         }
     }
+    // displays the color array
     display();
 }
-

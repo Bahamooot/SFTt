@@ -1,0 +1,3 @@
+/Users/bahamut/Documents/projects/clion/SFTt/cmake-build-debug/CMakeFiles/SFTt.dir
+/Users/bahamut/Documents/projects/clion/SFTt/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/bahamut/Documents/projects/clion/SFTt/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -9,7 +9,6 @@
 class average2D {
 public:
     std::vector<std::vector<int>> average(std::vector<std::vector<int>> array, int size_x, int size_y);
-    std::vector<int> average(std::vector<int> array, int size_x, int size_y);
 };
 
 

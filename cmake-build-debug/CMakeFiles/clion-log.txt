@@ -1,0 +1,5 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/bahamut/Documents/projects/clion/SFTt -B /Users/bahamut/Documents/projects/clion/SFTt/cmake-build-debug
+Found SLD at: /opt/homebrew/Cellar/sdl2/2.26.0/include;/opt/homebrew/Cellar/sdl2/2.26.0/include/SDL2
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/bahamut/Documents/projects/clion/SFTt/cmake-build-debug

@@ -3,7 +3,7 @@
 //
 
 #include "jubog_noise.h"
-
+// combines 1 right diagonal noise which is slightly slanted with 45 deg noises
 std::vector<int> jubog_noise::generate(int size_x, int size_y) {
     std::vector<int> right = rightDiagonal(size_x, size_y);
     std::vector<int> left1 = leftDiagonal(size_x, size_y);
@@ -15,7 +15,7 @@ std::vector<int> jubog_noise::generate(int size_x, int size_y) {
 
     return right;
 }
-
+// it's just left noise flipped 90 deg to the right and slightly slanted down
 std::vector<int> jubog_noise::rightDiagonal(int size_x, int size_y) {
     int array[size_x][size_y];
     std::vector<int> arrat;
@@ -53,9 +53,13 @@ std::vector<int> jubog_noise::rightDiagonal(int size_x, int size_y) {
 std::vector<int> jubog_noise::leftDiagonal(int size_x, int size_y) {
     std::vector<int> array;
     notTrueRandom rando;
+    // 128 is midpoint between 0 and 255
     int wave = 128;
     int step = 0;
+    // loop through every value
     for (int i = 0; i < size_x*size_y; i++) {
+        // works the same as linear noise for the first row
+        // each subsequent row is the average between a wave value behind it and the value above it to the left.
         int random = rando.getRandom(0, 100);
         if (random <= 50 ) {
             step += 10;

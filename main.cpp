@@ -8,34 +8,40 @@
 
 int main(void)
 {
+    // Screen size
+    int screen_size_x = 500;
+    int screen_size_y = 500;
 
-    int screen_size_x = 1000;
-    int screen_size_y = 1000;
-
+    // Setting up the SDL window and renderer
     SDL_Window      *window = NULL;
     SDL_Renderer    *sdl_renderer = NULL;
 
+    // Initialize the window with the renderer
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_CreateWindowAndRenderer(screen_size_x, screen_size_y, 0, &window, &sdl_renderer);
 
+    // Making our own renderer so we can render custom data
     self_renderer renderer(sdl_renderer, screen_size_x, screen_size_y);
-    //renderer.setPixel(*new color(0,0,0,255,250,250));
 
-    bool quit = false;
+
     //Event handler
     SDL_Event event;
+
+    // Generation parameters for keyboard inputs
     int smoothness = 0;
     int iterations = 1;
     bool colour = 0;
     int current_noise = 0;
     bool regenerate = 0;
+
+    bool quit = false;
     //While application is running
     while( !quit )
     {
         //Handle events on queue
         while( SDL_PollEvent( &event ) != 0 ) // poll for event
         {
-
+            // Generate different types of noise based on key press
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
                     case SDLK_g: {
@@ -111,7 +117,8 @@ int main(void)
                     }
                 }
             }
-
+            // If a key is pressed beforehand to change color, increase soothness, etc, then regenerate the noise with
+            // the new parameters
             if (regenerate) {
                 switch (current_noise) {
                     case 0: {
@@ -151,7 +158,7 @@ int main(void)
             }
         }
     }
-
+    // bye bye code
     SDL_DestroyRenderer(sdl_renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

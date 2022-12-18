@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "notTrueRandom.h"
-
+// interface for all noise functions
 class noise {
 public:
     virtual std::vector<int> generate(int size_x, int size_y) = 0;

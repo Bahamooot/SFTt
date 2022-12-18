@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <numeric>
 
+// we ripped this off from https://github.com/sol-prog/Perlin_Noise/blob/master/PerlinNoise.cpp
+// using it as comparison to our own noises
 
 berlin_noise::berlin_noise() {
 
